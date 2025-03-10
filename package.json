@@ -7,7 +7,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ext .js,.ts,.vue backend frontend shared",
-    "format": "prettier --write \"**/*.{js,ts,vue,json,md}\""
+    "format": "prettier --write \"**/*.{js,ts,vue,json,md}\"",
+    "prepare": "husky"
   },
   "keywords": [],
   "author": "Laurence Young",
@@ -24,6 +25,7 @@
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-vue": "^10.0.0",
     "globals": "^16.0.0",
+    "husky": "^9.1.7",
     "prettier": "^3.5.3",
     "typescript-eslint": "^8.26.0",
     "vue-eslint-parser": "^10.1.1"
