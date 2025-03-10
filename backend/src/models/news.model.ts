@@ -1,5 +1,5 @@
 import { Entity, PrimaryKey, Property } from '@mikro-orm/core';
-import { NewsItem } from '../../../shared/types/news-item.js';
+import { NewsItem } from '#shared/types/news-item.js';
 
 @Entity()
 export class NewsModel implements NewsItem {

@@ -13,6 +13,9 @@
   "author": "Laurence Young",
   "license": "ISC",
   "packageManager": "pnpm@10.6.1",
+  "imports": {
+    "#shared/": "./shared/"
+  },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
     "@typescript-eslint/eslint-plugin": "^8.26.0",

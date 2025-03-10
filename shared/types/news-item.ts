@@ -5,4 +5,5 @@ export interface NewsItem {
   time: string;
   commentsCount: number;
   thumbnail?: string;
+  source: string;
 }
