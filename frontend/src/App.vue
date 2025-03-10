@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import Title from './components/Title.vue';
+import AppTitle from './components/AppTitle.vue';
 </script>
 
 <template>
   <main>
-    <Title title="Game News Center" />
+    <AppTitle title="Game News Center" />
   </main>
 </template>
 
