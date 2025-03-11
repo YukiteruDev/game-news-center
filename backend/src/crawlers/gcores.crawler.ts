@@ -2,6 +2,7 @@ import axios from 'axios';
 import * as cheerio from 'cheerio';
 import { CheerioAPI } from 'cheerio';
 import { NewsItem } from '#shared/types/news-item.js';
+import { pathToFileURL } from 'url';
 
 const baseUrl = 'https://www.gcores.com';
 
@@ -63,4 +64,6 @@ async function main() {
   }
 }
 
-main();
+if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main();
+}

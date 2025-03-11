@@ -1,5 +1,5 @@
 import { Entity, PrimaryKey, Property } from '@mikro-orm/core';
-import { NewsItem } from '#shared/types/news-item.js';
+import { NewsSource, NewsItem } from '#shared/types/news-item.js';
 
 @Entity()
 export class NewsModel implements NewsItem {
@@ -22,7 +22,7 @@ export class NewsModel implements NewsItem {
   thumbnail?: string;
 
   @Property({ type: 'string' })
-  source: string;
+  source: NewsSource;
 
   @Property({ onCreate: () => new Date(), type: 'date' })
   createdAt: Date = new Date();
