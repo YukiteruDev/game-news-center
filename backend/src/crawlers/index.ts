@@ -2,7 +2,7 @@ import getGcoresNews from './gcores.crawler.js';
 import { NewsItem } from '#shared/types/news-item.js';
 import { pathToFileURL } from 'url';
 
-async function fetchAllNews() {
+async function fetchAllNews(): Promise<NewsItem[]> {
   console.log('Fetching all news...');
 
   const [gcoresNews] = await Promise.all([getGcoresNews()]);
