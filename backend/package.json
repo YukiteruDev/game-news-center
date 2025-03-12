@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "vitest",
+    "test": "vitest run",
     "start": "tsx src/app.ts",
     "dev": "nodemon --watch src --ext ts --exec tsx src/app.ts"
   },

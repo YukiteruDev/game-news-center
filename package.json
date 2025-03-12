@@ -5,8 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test:all": "pnpm run test --workspaces",
-    "test:backend": "pnpm run test --workspaces backend",
+    "test:backend": "pnpm --filter backend test",
     "lint": "eslint --ext .js,.ts,.vue backend frontend shared",
     "format": "prettier --write \"**/*.{js,ts,vue,json,md}\"",
     "prepare": "husky"
@@ -36,18 +35,5 @@
     "stylelint-prettier": "^5.0.3",
     "typescript-eslint": "^8.26.0",
     "vue-eslint-parser": "^10.1.1"
-  },
-  "lint-staged": {
-    "*.{js,ts,vue}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{json,md,html}": [
-      "prettier --write"
-    ],
-    "*.css": [
-      "prettier --write",
-      "stylelint --fix"
-    ]
   }
 }
