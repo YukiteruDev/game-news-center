@@ -12,14 +12,14 @@ export class NewsModel implements NewsItem {
   @Property({ type: 'string' })
   title: string;
 
-  @Property({ type: 'string', nullable: true })
-  time: string;
+  @Property()
+  date: Date;
 
   @Property({ type: 'integer', default: 0 })
   commentsCount: number;
 
-  @Property({ type: 'string', nullable: true })
-  thumbnail?: string;
+  @Property({ type: 'string' })
+  thumbnail: string;
 
   @Property({ type: 'string' })
   source: NewsSource;
@@ -33,7 +33,7 @@ export class NewsModel implements NewsItem {
   constructor(newsItem: NewsItem & { source: string }) {
     this.link = newsItem.link;
     this.title = newsItem.title;
-    this.time = newsItem.time;
+    this.date = newsItem.date;
     this.commentsCount = newsItem.commentsCount;
     this.thumbnail = newsItem.thumbnail;
     this.source = newsItem.source;

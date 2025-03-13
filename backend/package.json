@@ -19,6 +19,7 @@
     "@mikro-orm/postgresql": "^6.4.9",
     "axios": "^1.8.2",
     "cheerio": "^1.0.0",
+    "dayjs": "^1.11.13",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "pg": "^8.13.3",

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import { CheerioAPI } from 'cheerio';
+import dayjs from 'dayjs';
 import { NewsItem } from '#shared/types/news-item.js';
 import { pathToFileURL } from 'url';
 
@@ -38,7 +39,9 @@ export default async function parseNewsItems(): Promise<NewsItem[]> {
 
       const link: string = `${baseUrl}/articles/${id}`;
       const title: string = info.title;
-      const time: string = info['published-at'];
+
+      const dateString: string = info['published-at'];
+      const date = dayjs(dateString).toDate();
 
       const commentsCount: number = parseInt(info['comments-count']) || 0;
       const thumbnail: string = `https://image.gcores.com/${info.thumb}`;
@@ -46,7 +49,7 @@ export default async function parseNewsItems(): Promise<NewsItem[]> {
       newsItems.push({
         link,
         title,
-        time,
+        date,
         commentsCount,
         thumbnail,
         source: 'gcores',

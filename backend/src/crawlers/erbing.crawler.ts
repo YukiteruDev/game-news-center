@@ -2,8 +2,14 @@ import axios from 'axios';
 import puppeteer, { Page } from 'puppeteer';
 import * as cheerio from 'cheerio';
 import { CheerioAPI } from 'cheerio';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc.js';
+import timezone from 'dayjs/plugin/timezone.js';
 import { NewsItem, NewsSource } from '#shared/types/news-item.js';
 import { pathToFileURL } from 'url';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const baseUrl = 'https://diershoubing.com';
 
@@ -52,7 +58,6 @@ export default async function getNewsItems(): Promise<NewsItem[]> {
     for (const link of newsLinks) {
       const newsItem = await fetchNewsInfo(page, link);
       if (newsItem) {
-        console.table(newsItem);
         newsItems.push(newsItem);
       } else {
         console.warn(`Failed to fetch news info from: ${link}`);
@@ -86,13 +91,15 @@ async function fetchNewsInfo(page: Page, url: string): Promise<NewsItem> {
 
     const sideInfo = articleArea.find('.news_title_bar > div');
 
-    const timeEl = sideInfo.find('.item').first();
-    timeEl.find('svg').remove();
-    const time = timeEl.text().trim();
+    const dateEl = sideInfo.find('.item').first();
+    dateEl.find('svg').remove();
+    const dateString = dateEl.text().trim();
+    const rawDate = dayjs(dateString).toDate();
+    const date = dayjs.tz(rawDate, 'Asia/Shanghai').toDate();
 
     let commentsCount = 0;
     const commentsEl = sideInfo.find('.item').last();
-    if (commentsEl.text() !== timeEl.text()) {
+    if (commentsEl.text() !== dateEl.text()) {
       commentsEl.find('svg').remove();
       const commentsText = commentsEl.text();
       commentsCount = parseInt(commentsText) || 0;
@@ -107,7 +114,7 @@ async function fetchNewsInfo(page: Page, url: string): Promise<NewsItem> {
     return {
       link: url,
       title,
-      time,
+      date,
       commentsCount,
       thumbnail,
       source,

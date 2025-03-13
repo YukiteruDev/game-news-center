@@ -21,7 +21,8 @@ async function fetchAllNews(): Promise<NewsItem[]> {
 
 async function main() {
   try {
-    await fetchAllNews();
+    const news = await fetchAllNews();
+    console.log(news);
   } catch (error) {
     console.error('Error fetching all news', error);
   }
