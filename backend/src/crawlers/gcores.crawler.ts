@@ -17,6 +17,7 @@ async function fetchNewsHtml(): Promise<string> {
 }
 
 export default async function parseNewsItems(): Promise<NewsItem[]> {
+  console.log('Fetching Gcores...');
   const html = await fetchNewsHtml();
 
   const $: CheerioAPI = cheerio.load(html);
