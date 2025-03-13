@@ -21,37 +21,38 @@ export default async function parseNewsItems(): Promise<NewsItem[]> {
   const html = await fetchNewsHtml();
 
   const $: CheerioAPI = cheerio.load(html);
+
+  const script = $('body > script').first().html();
+  const match = script?.match(/window\.__PRELOADED_STATE__\s*=\s*({.*?});/s);
+
   const newsItems: NewsItem[] = [];
 
-  $('#app .navLayout_main .container a.news').each((_, element) => {
-    const el = $(element);
+  if (match) {
+    const preloadedState = JSON.parse(match[1]);
 
-    const href = el.attr('href') || '';
-    const title = el.find('h3').text();
-    const time = el.find('.news_meta span').first().text();
+    const articles = preloadedState.entities.articles;
 
-    const commentsSpan = el.find('.news_meta span').last();
-    commentsSpan.find('b').remove();
-    const commentsText = commentsSpan.text();
-    const commentsCount = parseInt(commentsText) || 0;
+    for (const id in articles) {
+      const article = articles[id];
+      const info = article.attributes;
 
-    const backgroundImage = el.find('.news_imgArea').attr('style') || '';
-    const thumbnailMatch = backgroundImage.match(/url\((.*?)\)/);
-    const thumbnail = thumbnailMatch
-      ? thumbnailMatch[1].split('?')[0]
-      : undefined;
+      const link: string = `${baseUrl}/articles/${id}`;
+      const title: string = info.title;
+      const time: string = info['published-at'];
 
-    const newsItem: NewsItem = {
-      link: `${baseUrl}${href}`,
-      title,
-      time,
-      commentsCount,
-      thumbnail,
-      source: 'gcores',
-    };
+      const commentsCount: number = parseInt(info['comments-count']) || 0;
+      const thumbnail: string = `https://image.gcores.com/${info.thumb}`;
 
-    newsItems.push(newsItem);
-  });
+      newsItems.push({
+        link,
+        title,
+        time,
+        commentsCount,
+        thumbnail,
+        source: 'gcores',
+      });
+    }
+  }
 
   return newsItems;
 }
