@@ -1,7 +1,8 @@
-import { Entity, PrimaryKey, Property } from '@mikro-orm/core';
+import { Entity, Unique, PrimaryKey, Property } from '@mikro-orm/core';
 import { NewsSource, NewsItem } from '#shared/types/news-item.js';
 
 @Entity()
+@Unique({ properties: ['link'] })
 export class NewsModel implements NewsItem {
   @PrimaryKey({ type: 'uuid', defaultRaw: 'gen_random_uuid()' })
   id!: string;
@@ -12,7 +13,7 @@ export class NewsModel implements NewsItem {
   @Property({ type: 'string' })
   title: string;
 
-  @Property()
+  @Property({ type: 'date' })
   date: Date;
 
   @Property({ type: 'integer', default: 0 })
