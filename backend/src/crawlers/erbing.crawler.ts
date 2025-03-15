@@ -2,15 +2,10 @@ import axios from 'axios';
 import puppeteer, { Page } from 'puppeteer';
 import * as cheerio from 'cheerio';
 import { CheerioAPI } from 'cheerio';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc.js';
-import timezone from 'dayjs/plugin/timezone.js';
 import { NewsItem, NewsSource } from '#shared/types/news-item.js';
 import { pathToFileURL } from 'url';
 import { closeORM, filterNewLinks, getEM } from '../orm.js';
-
-dayjs.extend(utc);
-dayjs.extend(timezone);
+import { getLocaleDate } from '../utils.js';
 
 const baseUrl = 'https://diershoubing.com';
 
@@ -49,7 +44,11 @@ export default async function getNewsItems(): Promise<NewsItem[]> {
   const em = await getEM();
   const newsLinks = getNewsLinks($);
   const newLinks = await filterNewLinks(em, newsLinks);
-  console.log(`Skipped ${newsLinks.length - newLinks.length} items`);
+
+  if (!newLinks.length) {
+    console.log('No new items found in Erbing');
+    return [];
+  }
 
   const newsItems: NewsItem[] = [];
 
@@ -75,7 +74,6 @@ export default async function getNewsItems(): Promise<NewsItem[]> {
     throw error;
   } finally {
     await browser.close();
-    await closeORM();
   }
 }
 
@@ -100,8 +98,7 @@ async function fetchNewsInfo(page: Page, url: string): Promise<NewsItem> {
     const dateEl = sideInfo.find('.item').first();
     dateEl.find('svg').remove();
     const dateString = dateEl.text().trim();
-    const rawDate = dayjs(dateString).toDate();
-    const date = dayjs.tz(rawDate, 'Asia/Shanghai').toDate();
+    const date = getLocaleDate(dateString);
 
     let commentsCount = 0;
     const commentsEl = sideInfo.find('.item').last();
@@ -136,6 +133,8 @@ async function main() {
     await getNewsItems();
   } catch (error) {
     console.error('Error getting news data:', error);
+  } finally {
+    await closeORM();
   }
 }
 
