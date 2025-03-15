@@ -35,5 +35,11 @@
     "tsx": "^4.19.3",
     "typescript": "~5.7.2",
     "vitest": "^3.0.8"
+  },
+  "mikro-orm": {
+    "useNodeTs": true,
+    "configPaths": [
+      "./mikro-orm.config.ts"
+    ]
   }
 }
