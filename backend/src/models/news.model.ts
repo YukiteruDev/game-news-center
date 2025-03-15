@@ -16,7 +16,7 @@ export class NewsModel implements NewsItem {
   @Property({ type: 'date' })
   date: Date;
 
-  @Property({ type: 'integer', default: 0 })
+  @Property({ type: 'integer', default: 0, nullable: true })
   commentsCount: number;
 
   @Property({ type: 'string' })
@@ -35,7 +35,7 @@ export class NewsModel implements NewsItem {
     this.link = newsItem.link;
     this.title = newsItem.title;
     this.date = newsItem.date;
-    this.commentsCount = newsItem.commentsCount;
+    this.commentsCount = newsItem.commentsCount ?? 0;
     this.thumbnail = newsItem.thumbnail;
     this.source = newsItem.source;
   }

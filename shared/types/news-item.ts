@@ -5,7 +5,7 @@ export interface NewsItem {
   link: string;
   title: string;
   date: Date;
-  commentsCount: number;
+  commentsCount?: number;
   thumbnail: string;
   source: NewsSource;
 }
