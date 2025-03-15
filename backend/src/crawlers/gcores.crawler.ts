@@ -4,6 +4,7 @@ import { CheerioAPI } from 'cheerio';
 import dayjs from 'dayjs';
 import { NewsItem } from '#shared/types/news-item.js';
 import { pathToFileURL } from 'url';
+import { filterNewLinks, getEM } from '../orm.js';
 
 const baseUrl = 'https://www.gcores.com';
 
@@ -33,11 +34,22 @@ export default async function parseNewsItems(): Promise<NewsItem[]> {
 
     const articles = preloadedState.entities.articles;
 
+    const articleLinks: string[] = Object.keys(articles).map(
+      (id) => `${baseUrl}/articles/${id}`
+    );
+    const em = await getEM();
+    const newLinks = await filterNewLinks(em, articleLinks);
+
     for (const id in articles) {
+      const link = `${baseUrl}/articles/${id}`;
+      if (!newLinks.includes(link)) {
+        console.log(`Skipping ${link}`);
+        continue;
+      }
+
       const article = articles[id];
       const info = article.attributes;
 
-      const link: string = `${baseUrl}/articles/${id}`;
       const title: string = info.title;
 
       const dateString: string = info['published-at'];

@@ -1,5 +1,7 @@
 import { MikroORM, EntityManager } from '@mikro-orm/core';
 import config from '../mikro-orm.config.js';
+import { NewsItem } from '#shared/types/news-item.js';
+import { NewsModel } from './models/news.model.js';
 
 let ormInstance: MikroORM | null = null;
 
@@ -28,4 +30,16 @@ export async function getEM(): Promise<EntityManager> {
   const orm = await getORM();
   const globalEm: EntityManager = orm.em;
   return globalEm.fork();
+}
+
+export async function filterNewLinks(
+  em: EntityManager,
+  links: string[]
+): Promise<string[]> {
+  const existingItems: NewsItem[] = await em.find(NewsModel, {
+    link: { $in: links },
+  });
+  const existingLinks = existingItems.map((item) => item.link);
+
+  return links.filter((link) => !existingLinks.includes(link));
 }

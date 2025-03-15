@@ -14,7 +14,7 @@ async function fetchAllNews(): Promise<NewsItem[]> {
   const erbingNews = await getErbingNews();
   console.log(`Fetched ${erbingNews.length} Erbing news items`);
 
-  const allNewsItems = [...gcoresNews];
+  const allNewsItems = [...gcoresNews, ...erbingNews];
   console.log(`Fetched ${allNewsItems.length} news items`);
 
   try {
@@ -23,7 +23,7 @@ async function fetchAllNews(): Promise<NewsItem[]> {
     const newsModelInstances = allNewsItems.map((item) => new NewsModel(item));
 
     await em.persistAndFlush(newsModelInstances);
-    console.log(`Persisted ${allNewsItems} news items`);
+    console.log(`Persisted ${allNewsItems.length} news items`);
   } catch (error) {
     console.error('Error persisting news items', error);
   } finally {

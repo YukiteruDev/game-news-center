@@ -7,6 +7,7 @@ import utc from 'dayjs/plugin/utc.js';
 import timezone from 'dayjs/plugin/timezone.js';
 import { NewsItem, NewsSource } from '#shared/types/news-item.js';
 import { pathToFileURL } from 'url';
+import { closeORM, filterNewLinks, getEM } from '../orm.js';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -44,7 +45,11 @@ export default async function getNewsItems(): Promise<NewsItem[]> {
   console.log('Fetching Erbing...');
   const html = await fetchNewsHtml();
   const $: CheerioAPI = cheerio.load(html);
+
+  const em = await getEM();
   const newsLinks = getNewsLinks($);
+  const newLinks = await filterNewLinks(em, newsLinks);
+  console.log(`Skipped ${newsLinks.length - newLinks.length} items`);
 
   const newsItems: NewsItem[] = [];
 
@@ -55,7 +60,7 @@ export default async function getNewsItems(): Promise<NewsItem[]> {
     const page = await browser.newPage();
     console.log('New page created');
 
-    for (const link of newsLinks) {
+    for (const link of newLinks) {
       const newsItem = await fetchNewsInfo(page, link);
       if (newsItem) {
         newsItems.push(newsItem);
@@ -70,6 +75,7 @@ export default async function getNewsItems(): Promise<NewsItem[]> {
     throw error;
   } finally {
     await browser.close();
+    await closeORM();
   }
 }
 
