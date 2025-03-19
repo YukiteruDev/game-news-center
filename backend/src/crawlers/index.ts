@@ -9,7 +9,7 @@ import { NewsItem } from '#shared/types/news-item.js';
 import { closeORM, getEM } from '../orm.js';
 import { NewsModel } from '../models/news.model.js';
 
-async function fetchAllNews(): Promise<NewsItem[]> {
+export async function fetchAllNews(): Promise<NewsItem[]> {
   console.log('Fetching all news...');
 
   const gcoresNews = await getGcoresNews();
@@ -43,13 +43,14 @@ async function fetchAllNews(): Promise<NewsItem[]> {
   return allNewsItems;
 }
 
-async function runCrawler() {
+export async function runCrawler() {
   console.log('Cron job started');
   try {
     await fetchAllNews();
     console.log('Cron job completed');
   } catch (error) {
     console.log('Cron job failed:', error);
+    throw error;
   }
 }
 
