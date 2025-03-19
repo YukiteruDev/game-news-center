@@ -1,9 +1,11 @@
+import { CronJob } from 'cron';
+import { pathToFileURL } from 'url';
+import * as http from 'http';
 import getGcoresNews from './gcores.crawler.js';
 import getErbingNews from './erbing.crawler.js';
 import getGamerskyNews from './gamersky.crawler.js';
 import getIthomeNews from './ithome.crawler.js';
 import { NewsItem } from '#shared/types/news-item.js';
-import { pathToFileURL } from 'url';
 import { closeORM, getEM } from '../orm.js';
 import { NewsModel } from '../models/news.model.js';
 
@@ -41,14 +43,17 @@ async function fetchAllNews(): Promise<NewsItem[]> {
   return allNewsItems;
 }
 
-async function main() {
+async function runCrawler() {
+  console.log('Cron job started');
   try {
     await fetchAllNews();
+    console.log('Cron job completed');
   } catch (error) {
-    console.error('Error fetching all news', error);
+    console.log('Cron job failed:', error);
   }
 }
 
-if (import.meta.url === pathToFileURL(process.argv[1]).href) {
-  main();
-}
+// time, onTick, onComplete, start, timeZone, context, runOnInit
+new CronJob('0 * * * *', runCrawler, null, true, 'Asia/Shanghai', null, true);
+
+http.createServer().listen(3001); // keep alive
