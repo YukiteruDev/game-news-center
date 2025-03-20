@@ -5,7 +5,6 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test:backend": "pnpm --filter backend test",
     "lint": "eslint --ext .js,.ts,.vue backend frontend shared",
     "format": "prettier --write \"**/*.{js,ts,vue,json,md}\"",
     "prepare": "husky"
