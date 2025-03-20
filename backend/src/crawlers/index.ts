@@ -5,7 +5,7 @@ import getGcoresNews from './gcores.crawler.js';
 import getErbingNews from './erbing.crawler.js';
 import getGamerskyNews from './gamersky.crawler.js';
 import getIthomeNews from './ithome.crawler.js';
-import { NewsItem } from '#shared/types/news-item.js';
+import { NewsItem } from '#shared/types/news.js';
 import { closeORM, getEM } from '../orm.js';
 import { NewsModel } from '../models/news.model.js';
 

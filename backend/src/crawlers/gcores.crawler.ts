@@ -2,8 +2,8 @@ import axios from 'axios';
 import * as cheerio from 'cheerio';
 import { CheerioAPI } from 'cheerio';
 import dayjs from 'dayjs';
-import { NewsItem } from '#shared/types/news-item.js';
 import { pathToFileURL } from 'url';
+import { NewsItem } from '#shared/types/news.js';
 import { closeORM, filterNewLinks, getEM } from '../orm.js';
 
 const baseUrl = 'https://www.gcores.com';

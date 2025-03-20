@@ -1,8 +1,8 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import { CheerioAPI } from 'cheerio';
-import { NewsItem } from '#shared/types/news-item.js';
 import { pathToFileURL } from 'url';
+import { NewsItem } from '#shared/types/news.js';
 import { closeORM, filterNewLinks, getEM } from '../orm.js';
 import { getLocaleDate } from '../utils.js';
 

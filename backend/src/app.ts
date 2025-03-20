@@ -2,7 +2,7 @@ import express, { Application, Request, Response } from 'express';
 import { runCrawler } from './crawlers/index.js';
 import { getEM } from './orm.js';
 import { NewsModel } from './models/news.model.js';
-import { NewsSource } from '#shared/types/news-item.js';
+import { NewsSourceId } from '#shared/types/news.js';
 
 const app: Application = express();
 const port: number = 3000;
@@ -57,7 +57,7 @@ app.get('/api/news/source/:source', async (req: Request, res: Response) => {
 
     const [news, total] = await em.findAndCount(
       NewsModel,
-      { source: source as NewsSource },
+      { source: source as NewsSourceId },
       {
         orderBy: { date: 'DESC' },
         limit,

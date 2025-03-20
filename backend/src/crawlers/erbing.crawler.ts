@@ -2,7 +2,7 @@ import axios from 'axios';
 import puppeteer, { Page } from 'puppeteer';
 import * as cheerio from 'cheerio';
 import { CheerioAPI } from 'cheerio';
-import { NewsItem, NewsSource } from '#shared/types/news-item.js';
+import { NewsItem, NewsSourceId } from '#shared/types/news.js';
 import { pathToFileURL } from 'url';
 import { closeORM, filterNewLinks, getEM } from '../orm.js';
 import { getLocaleDate } from '../utils.js';
@@ -112,7 +112,7 @@ async function fetchNewsInfo(page: Page, url: string): Promise<NewsItem> {
     const imageSrc = image.attr('src') || '';
     const thumbnail = imageSrc.replace(/\?.*$/, '');
 
-    const source: NewsSource = 'erbing';
+    const source: NewsSourceId = 'erbing';
 
     return {
       link: url,

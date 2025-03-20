@@ -5,7 +5,7 @@ import {
   Property,
   DateTimeType,
 } from '@mikro-orm/core';
-import { NewsSource, NewsItem } from '#shared/types/news-item.js';
+import { NewsSourceId, NewsItem } from '#shared/types/news.js';
 
 @Entity()
 @Unique({ properties: ['link'] })
@@ -29,7 +29,7 @@ export class NewsModel implements NewsItem {
   thumbnail: string;
 
   @Property({ type: 'string' })
-  source: NewsSource;
+  source: NewsSourceId;
 
   @Property({ onCreate: () => new Date(), type: 'date' })
   createdAt: Date = new Date();
