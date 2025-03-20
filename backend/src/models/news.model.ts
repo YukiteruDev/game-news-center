@@ -1,4 +1,10 @@
-import { Entity, Unique, PrimaryKey, Property } from '@mikro-orm/core';
+import {
+  Entity,
+  Unique,
+  PrimaryKey,
+  Property,
+  DateTimeType,
+} from '@mikro-orm/core';
 import { NewsSource, NewsItem } from '#shared/types/news-item.js';
 
 @Entity()
@@ -13,7 +19,7 @@ export class NewsModel implements NewsItem {
   @Property({ type: 'string' })
   title: string;
 
-  @Property({ type: 'date' })
+  @Property({ type: DateTimeType })
   date: Date;
 
   @Property({ type: 'integer', default: 0, nullable: true })
