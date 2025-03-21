@@ -1,28 +1,48 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import { newsSources, type NewsSourcesId } from '../types';
 
-const props = defineProps<{
-  initialSource: NewsSourcesId;
+defineProps<{
+  selectedSource: NewsSourcesId;
 }>();
 
-const selectedSource = ref<NewsSourcesId>(props.initialSource);
-
-function updateSelectedSource(id: NewsSourcesId) {
-  selectedSource.value = id;
-}
+const emit = defineEmits<{
+  (e: 'update-selected-source', id: NewsSourcesId): void;
+}>();
 </script>
 
 <template>
-  <ul id="news-sources">
-    <li
-      v-for="source in newsSources"
-      :key="source.id"
-      :class="{ active: source.id === selectedSource }"
-    >
-      <button @click="updateSelectedSource(source.id)">
-        {{ source.name }}
-      </button>
-    </li>
-  </ul>
+  <section>
+    <h2 class="sr-only">选择新闻来源</h2>
+    <ul class="news-source-tabs" role="tablist">
+      <li
+        v-for="source in newsSources"
+        :key="source.id"
+        :class="{ active: source.id === selectedSource }"
+        class="news-source-tab"
+        role="presentation"
+      >
+        <button
+          role="tab"
+          :aria-selected="source.id === selectedSource"
+          :aria-controls="`news-list-${source.id}`"
+          @click="emit('update-selected-source', source.id)"
+        >
+          {{ source.name }}
+        </button>
+      </li>
+    </ul>
+  </section>
 </template>
+
+<style scoped>
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+</style>

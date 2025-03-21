@@ -1,4 +1,5 @@
 import express, { Application, Request, Response } from 'express';
+import cors from 'cors';
 import { runCrawler } from './crawlers/index.js';
 import { getEM } from './orm.js';
 import { NewsModel } from './models/news.model.js';
@@ -9,6 +10,14 @@ const port: number = 3000;
 
 // Middleware
 app.use(express.json());
+
+const allowedOrigins = ['http://localhost:5173'];
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+  })
+);
 
 // Routes
 app.get('/', (req: Request, res: Response) => {
