@@ -10,7 +10,7 @@ const props = defineProps<{
 <template>
   <article class="news-item">
     <header class="news-item__header">
-      <a :href="props.item.link" target="_blank">
+      <a class="news-item__cover" :href="props.item.link" target="_blank">
         <img
           :src="props.item.thumbnail"
           :alt="props.item.title"
@@ -33,7 +33,7 @@ const props = defineProps<{
         >
           {{ formatDateTime(props.item.date) }}
         </time>
-        <span class="news-item__comments"
+        <span v-if="props.item.commentsCount" class="news-item__comments"
           >{{ props.item.commentsCount }} 评论</span
         >
       </p>
@@ -44,18 +44,43 @@ const props = defineProps<{
 <style scoped lang="less">
 .news-item {
   display: flex;
-  .news-item__thumbnail {
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid var(--accent-color);
+  a.news-item__cover {
+    display: flex;
     width: 200px;
     height: 120px;
-    object-fit: cover;
+    border-radius: 0.4rem;
+    overflow: hidden;
+    .news-item__thumbnail {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
   }
   .news-item__content {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    .news-item__title {
+      a {
+        color: var(--text-color);
+        text-decoration: none;
+        &:hover,
+        &:active {
+          color: var(--link-color);
+        }
+      }
+    }
     .news-item__meta {
       display: flex;
       gap: 2rem;
+      time,
+      span {
+        font-size: 0.85rem;
+        color: var(--secondary-text-color);
+      }
     }
   }
 }

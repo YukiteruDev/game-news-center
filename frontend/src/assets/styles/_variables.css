@@ -1,15 +1,19 @@
 :root {
-  --background-color: #fff;
+  --background-color: #eff4f8;
   --text-color: #333;
-  --primary-color: #1890ff;
-  --accent-color: #f5222d;
+  --secondary-text-color: #666;
+  --primary-color: #fff;
+  --accent-color: #e0e0e0;
+  --active-color: #193cb8;
+  --link-color: #ec003f;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background-color: #121212;
     --text-color: #eee;
-    --primary-color: #40a9ff;
-    --accent-color: #ff4d4f;
+    --secondary-text-color: #b9b9b9;
+    --primary-color: #18181b;
+    --accent-color: #35302f;
   }
 }

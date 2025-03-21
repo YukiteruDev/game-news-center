@@ -16,5 +16,9 @@ function reloadPage() {
 h1 {
   font-size: 1.2em;
   line-height: 1.1;
+  a {
+    color: var(--text-color);
+    text-decoration: none;
+  }
 }
 </style>

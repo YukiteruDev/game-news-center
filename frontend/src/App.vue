@@ -67,10 +67,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <header>
-    <AppTitle title="Game News Center" />
+  <header class="page-header">
+    <section class="page-header__inner">
+      <AppTitle title="Game News Center" />
+    </section>
   </header>
-  <main>
+  <main class="main-content">
     <NewsSourceTabs
       :selected-source="selectedSource"
       @update-selected-source="updateSelectedSource"
@@ -82,8 +84,31 @@ onMounted(() => {
 </template>
 
 <style scoped lang="less">
-header {
+header.page-header {
   display: flex;
-  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding: 1rem 0;
+  background-color: var(--primary-color);
+  border-bottom: 1px solid var(--accent-color);
+  section.page-header__inner {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+main.main-content {
+  width: 100%;
+  margin: 0 auto;
+  background-color: var(--primary-color);
+  border: 1px solid var(--accent-color);
+  border-radius: 0.8rem;
+}
+@media screen and (min-width: 800px) {
+  section.page-header__inner,
+  main.main-content {
+    width: 90vw;
+    max-width: 800px;
+  }
 }
 </style>
