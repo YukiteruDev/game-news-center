@@ -31,7 +31,15 @@ async function fetchNewsList() {
       selectedSource.value,
       page.value
     );
-    newsList.value = [...newsList.value, ...data];
+
+    const convertedData = data.map((item) => {
+      return {
+        ...item,
+        date: new Date(item.date),
+      };
+    });
+
+    newsList.value = [...newsList.value, ...convertedData];
     totalPages.value = pagination.totalPages;
   } catch (error) {
     console.error(error);
