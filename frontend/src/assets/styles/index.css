@@ -1,0 +1,14 @@
+@import url('./_reset.css');
+@import url('./_variables.css');
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}

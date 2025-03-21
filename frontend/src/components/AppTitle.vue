@@ -1,14 +1,20 @@
 <script setup lang="ts">
 defineProps<{ title: string }>();
+
+function reloadPage() {
+  location.reload();
+}
 </script>
 
 <template>
-  <h1>{{ title }}</h1>
+  <h1>
+    <a href="#" @click.prevent="reloadPage">游戏资讯中心</a>
+  </h1>
 </template>
 
 <style scoped>
 h1 {
-  font-size: 3.2em;
+  font-size: 1.2em;
   line-height: 1.1;
 }
 </style>

@@ -67,14 +67,23 @@ onMounted(() => {
 </script>
 
 <template>
-  <main>
+  <header>
     <AppTitle title="Game News Center" />
+  </header>
+  <main>
     <NewsSourceTabs
       :selected-source="selectedSource"
       @update-selected-source="updateSelectedSource"
     />
-    <NewsList :news-list="newsList" />
+    <section>
+      <NewsList :news-list="newsList" />
+    </section>
   </main>
 </template>
 
-<style scoped></style>
+<style scoped lang="less">
+header {
+  display: flex;
+  justify-content: space-between;
+}
+</style>

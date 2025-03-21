@@ -35,7 +35,7 @@ const emit = defineEmits<{
 </template>
 
 <style scoped>
-.sr-only {
+h2.sr-only {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -44,5 +44,9 @@ const emit = defineEmits<{
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
+}
+ul.news-source-tabs {
+  display: flex;
+  list-style: none;
 }
 </style>

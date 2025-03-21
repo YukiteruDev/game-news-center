@@ -14,6 +14,7 @@ const props = defineProps<{
         <img
           :src="props.item.thumbnail"
           :alt="props.item.title"
+          class="news-item__thumbnail"
           loading="lazy"
           referrerpolicy="no-referrer"
         />
@@ -39,3 +40,23 @@ const props = defineProps<{
     </section>
   </article>
 </template>
+
+<style scoped lang="less">
+.news-item {
+  display: flex;
+  .news-item__thumbnail {
+    width: 200px;
+    height: 120px;
+    object-fit: cover;
+  }
+  .news-item__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .news-item__meta {
+      display: flex;
+      gap: 2rem;
+    }
+  }
+}
+</style>

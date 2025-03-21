@@ -14,3 +14,12 @@ const props = defineProps<{
     </li>
   </ul>
 </template>
+
+<style scoped lang="less">
+.news-list {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 1rem;
+}
+</style>
