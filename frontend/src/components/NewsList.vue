@@ -8,7 +8,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <ul id="news-list">
+  <ul class="news-list">
     <li v-for="item in props.newsList" :key="item.id">
       <NewsListItem :item="item" />
     </li>

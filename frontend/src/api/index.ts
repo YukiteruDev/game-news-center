@@ -6,7 +6,10 @@ const apiClient = axios.create({
   baseURL: 'http://localhost:3000/api',
 });
 
-export async function getNewsList(source: NewsSourcesId = 'all'): Promise<{
+export async function getNewsList(
+  source: NewsSourcesId = 'all',
+  page: number = 1
+): Promise<{
   data: NewsItem[];
   pagination: Pagination;
 }> {
@@ -14,6 +17,7 @@ export async function getNewsList(source: NewsSourcesId = 'all'): Promise<{
   if (source !== 'all') {
     url += `/source/${source}`;
   }
+  url += `?page=${page}`;
 
   const res = await apiClient.get(url);
   return res.data;
