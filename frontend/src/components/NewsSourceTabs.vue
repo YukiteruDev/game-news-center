@@ -43,6 +43,7 @@ section {
   position: sticky;
   top: 0;
   z-index: 10;
+
   h2.sr-only {
     position: absolute;
     width: 1px;
@@ -53,21 +54,26 @@ section {
     clip: rect(0, 0, 0, 0);
     border: 0;
   }
+
   ul.news-source-tabs {
     display: flex;
     gap: 1rem;
     list-style: none;
     border-bottom: 1px solid var(--accent-color);
+
     li.news-source-tab {
       padding-bottom: 0.5rem;
+
       &.active {
         border-bottom: 2px solid var(--active-color);
       }
+
       &:not(.active) {
         button:hover {
           background-color: var(--accent-color);
         }
       }
+
       button {
         padding: 0 0.6rem;
         border-radius: 0.25rem;

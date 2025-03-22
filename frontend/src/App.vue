@@ -95,27 +95,33 @@ header.page-header {
   padding: 1rem 0;
   background-color: var(--primary-color);
   border-bottom: 1px solid var(--accent-color);
+
   section.page-header__inner {
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     width: 100%;
+    padding: 0;
+    max-width: 800px;
+
+    @media screen and (max-width: 800px) {
+      padding: 0 1rem;
+    }
   }
 }
+
 main.main-content {
   width: 100%;
   margin: 0 auto;
   background-color: var(--primary-color);
   border: 1px solid var(--accent-color);
   border-radius: 0.8rem;
+
   .news-list-container {
     min-height: 100vh;
   }
-}
-@media screen and (min-width: 800px) {
-  section.page-header__inner,
-  main.main-content {
-    width: 90vw;
+
+  @media screen and (min-width: 800px) {
     max-width: 800px;
   }
 }
