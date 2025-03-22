@@ -42,6 +42,7 @@ section {
   border-radius: 0.8rem;
   position: sticky;
   top: 0;
+  z-index: 10;
   h2.sr-only {
     position: absolute;
     width: 1px;

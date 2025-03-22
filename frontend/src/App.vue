@@ -6,6 +6,7 @@ import type { NewsSourcesId } from './types';
 import { computed, onMounted, ref } from 'vue';
 import type { NewsItem } from '#shared/types/news';
 import { getNewsList } from './api';
+import ThemeSwitcher from './components/ThemeSwitcher.vue';
 
 const newsList = ref<NewsItem[]>([]);
 const selectedSource = ref<NewsSourcesId>('all');
@@ -14,6 +15,7 @@ const totalPages = ref(0);
 const isLoading = ref(false);
 
 function updateSelectedSource(id: NewsSourcesId) {
+  window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   selectedSource.value = id;
   page.value = 1;
   newsList.value = [];
@@ -70,6 +72,7 @@ onMounted(() => {
   <header class="page-header">
     <section class="page-header__inner">
       <AppTitle title="Game News Center" />
+      <ThemeSwitcher />
     </section>
   </header>
   <main class="main-content">
@@ -77,7 +80,7 @@ onMounted(() => {
       :selected-source="selectedSource"
       @update-selected-source="updateSelectedSource"
     />
-    <section>
+    <section class="news-list-container">
       <NewsList :news-list="newsList" />
     </section>
   </main>
@@ -103,6 +106,9 @@ main.main-content {
   background-color: var(--primary-color);
   border: 1px solid var(--accent-color);
   border-radius: 0.8rem;
+  .news-list-container {
+    min-height: 100vh;
+  }
 }
 @media screen and (min-width: 800px) {
   section.page-header__inner,

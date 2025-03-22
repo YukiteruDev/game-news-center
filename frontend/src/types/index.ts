@@ -13,3 +13,5 @@ export interface Pagination {
   total: number;
   totalPages: number;
 }
+
+export type Theme = 'system' | 'light' | 'dark';

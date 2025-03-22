@@ -1,4 +1,5 @@
-:root {
+:root,
+:root[data-theme='light'] {
   --background-color: #eff4f8;
   --text-color: #333;
   --secondary-text-color: #666;
@@ -6,6 +7,14 @@
   --accent-color: #e0e0e0;
   --active-color: #193cb8;
   --link-color: #ec003f;
+}
+
+:root[data-theme='dark'] {
+  --background-color: #121212;
+  --text-color: #eee;
+  --secondary-text-color: #b9b9b9;
+  --primary-color: #18181b;
+  --accent-color: #35302f;
 }
 
 @media (prefers-color-scheme: dark) {
