@@ -1,22 +1,27 @@
 <script setup lang="ts">
+import { computed, onMounted, ref } from 'vue';
+import { storeToRefs } from 'pinia';
 import AppTitle from './components/AppTitle.vue';
 import NewsList from './components/NewsList.vue';
 import NewsSourceTabs from './components/NewsSourceTabs.vue';
 import type { NewsSourcesId } from './types';
-import { computed, onMounted, ref } from 'vue';
 import type { NewsItem } from '#shared/types/news';
 import { getNewsList } from './api';
 import ThemeSwitcher from './components/ThemeSwitcher.vue';
+import { useNewsListStore } from './stores/newsList';
+
+const newsListStore = useNewsListStore();
+const { activeTab } = storeToRefs(newsListStore);
+const { setActiveTab } = newsListStore;
 
 const newsList = ref<NewsItem[]>([]);
-const selectedSource = ref<NewsSourcesId>('all');
 const page = ref(1);
 const totalPages = ref(0);
 const isLoading = ref(false);
 
-function updateSelectedSource(id: NewsSourcesId) {
+function updateActiveTab(id: NewsSourcesId) {
   window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-  selectedSource.value = id;
+  setActiveTab(id);
   page.value = 1;
   newsList.value = [];
   fetchNewsList();
@@ -29,10 +34,7 @@ const hasMore = computed(() => {
 async function fetchNewsList() {
   isLoading.value = true;
   try {
-    const { data, pagination } = await getNewsList(
-      selectedSource.value,
-      page.value
-    );
+    const { data, pagination } = await getNewsList(activeTab.value, page.value);
 
     const convertedData = data.map((item) => {
       return {
@@ -77,8 +79,8 @@ onMounted(() => {
   </header>
   <main class="main-content">
     <NewsSourceTabs
-      :selected-source="selectedSource"
-      @update-selected-source="updateSelectedSource"
+      :active-tab="activeTab"
+      @update-active-tab="updateActiveTab"
     />
     <section class="news-list-container">
       <NewsList :news-list="newsList" />

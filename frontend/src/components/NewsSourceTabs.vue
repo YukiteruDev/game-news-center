@@ -2,11 +2,11 @@
 import { newsSources, type NewsSourcesId } from '../types';
 
 defineProps<{
-  selectedSource: NewsSourcesId;
+  activeTab: NewsSourcesId;
 }>();
 
 const emit = defineEmits<{
-  (e: 'update-selected-source', id: NewsSourcesId): void;
+  (e: 'update-active-tab', id: NewsSourcesId): void;
 }>();
 </script>
 
@@ -17,15 +17,15 @@ const emit = defineEmits<{
       <li
         v-for="source in newsSources"
         :key="source.id"
-        :class="{ active: source.id === selectedSource }"
+        :class="{ active: source.id === activeTab }"
         class="news-source-tab"
         role="presentation"
       >
         <button
           role="tab"
-          :aria-selected="source.id === selectedSource"
+          :aria-selected="source.id === activeTab"
           :aria-controls="`news-list-${source.id}`"
-          @click="emit('update-selected-source', source.id)"
+          @click="emit('update-active-tab', source.id)"
         >
           {{ source.name }}
         </button>

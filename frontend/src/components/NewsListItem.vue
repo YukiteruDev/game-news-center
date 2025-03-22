@@ -1,11 +1,42 @@
 <script setup lang="ts">
+import { computed, onMounted, ref } from 'vue';
+import { storeToRefs } from 'pinia';
 import { Icon } from '@iconify/vue';
-import { type NewsItem } from '#shared/types/news';
+import {
+  getNewsSourceById,
+  type NewsItem,
+  type NewsSource,
+} from '#shared/types/news';
 import { getISODateTime, getFullDateTime, formatDateTime } from '../utils';
+import { useNewsListStore } from '../stores/newsList';
+
+const { isDefaultTabActive } = storeToRefs(useNewsListStore());
 
 const props = defineProps<{
   item: NewsItem;
 }>();
+
+const newsSite = ref<NewsSource>({} as NewsSource);
+
+onMounted(() => {
+  getNewsSite();
+});
+
+function getNewsSite() {
+  const sourceId = props.item.source;
+  const site = getNewsSourceById(sourceId) as NewsSource;
+  newsSite.value = site;
+}
+
+const getNewsIcon = computed(
+  () =>
+    new URL(`../assets/icons/icon-${newsSite.value.id}.png`, import.meta.url)
+      .href
+);
+
+onMounted(() => {
+  getNewsSite();
+});
 </script>
 
 <template>
@@ -25,7 +56,11 @@ const props = defineProps<{
       <h3 class="news-item__title">
         <a :href="props.item.link" target="_blank">{{ props.item.title }}</a>
       </h3>
-      <p class="news-item__meta">
+      <small class="news-item__meta">
+        <span v-if="isDefaultTabActive" class="news-item__site">
+          <img :src="getNewsIcon" />
+          {{ newsSite.name }}
+        </span>
         <time
           v-if="props.item.date"
           :datetime="getISODateTime(props.item.date)"
@@ -41,7 +76,7 @@ const props = defineProps<{
           }}
           评论</span
         >
-      </p>
+      </small>
     </section>
   </article>
 </template>
@@ -87,7 +122,7 @@ const props = defineProps<{
     }
     .news-item__meta {
       display: flex;
-      gap: 2rem;
+      gap: 1rem;
       time,
       span {
         display: inline-flex;
@@ -95,6 +130,16 @@ const props = defineProps<{
         gap: 0.25rem;
         font-size: 0.85rem;
         color: var(--secondary-text-color);
+      }
+      span.news-item__site {
+        padding: 0.2rem 0.6rem;
+        background-color: var(--accent-color);
+        border-radius: 0.5rem;
+        color: var(--text-color);
+        font-size: 0.8rem;
+        img {
+          max-height: 1rem;
+        }
       }
     }
   }
