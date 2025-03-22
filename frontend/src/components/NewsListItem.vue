@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Icon } from '@iconify/vue';
 import { type NewsItem } from '#shared/types/news';
 import { getISODateTime, getFullDateTime, formatDateTime } from '../utils';
 
@@ -31,10 +32,14 @@ const props = defineProps<{
           :title="getFullDateTime(props.item.date)"
           class="news-item__date"
         >
+          <Icon icon="lets-icons:time" />
           {{ formatDateTime(props.item.date) }}
         </time>
-        <span v-if="props.item.commentsCount" class="news-item__comments"
-          >{{ props.item.commentsCount }} 评论</span
+        <span v-if="props.item.commentsCount" class="news-item__comments">
+          <Icon icon="lets-icons:comment" />{{
+            props.item.commentsCount
+          }}
+          评论</span
         >
       </p>
     </section>
@@ -85,6 +90,9 @@ const props = defineProps<{
       gap: 2rem;
       time,
       span {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
         font-size: 0.85rem;
         color: var(--secondary-text-color);
       }
