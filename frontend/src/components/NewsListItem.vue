@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { Icon } from '@iconify/vue';
 import {
@@ -7,7 +7,12 @@ import {
   type NewsItem,
   type NewsSource,
 } from '#shared/types/news';
-import { getISODateTime, getFullDateTime, formatDateTime } from '../utils';
+import {
+  getISODateTime,
+  getFullDateTime,
+  formatDateTime,
+  getSourceIcon,
+} from '../utils';
 import { useNewsListStore } from '../stores/newsList';
 
 const { isDefaultTabActive } = storeToRefs(useNewsListStore());
@@ -28,12 +33,6 @@ function getNewsSite() {
   const site = getNewsSourceById(sourceId) as NewsSource;
   newsSite.value = site;
 }
-
-const getNewsIcon = computed(
-  () =>
-    new URL(`../assets/icons/icon-${newsSite.value.id}.png`, import.meta.url)
-      .href
-);
 
 onMounted(() => {
   getNewsSite();
@@ -64,7 +63,7 @@ onMounted(() => {
       </p>
       <small class="news-item__meta">
         <span v-if="isDefaultTabActive" class="news-item__site">
-          <img :src="getNewsIcon" :alt="newsSite.name" />
+          <img :src="getSourceIcon(newsSite.id)" :alt="newsSite.name" />
           {{ newsSite.name }}
         </span>
         <time
@@ -174,7 +173,7 @@ onMounted(() => {
         color: var(--text-color);
         font-size: 0.8rem;
         img {
-          max-height: 1rem;
+          max-height: 0.9rem;
         }
       }
     }

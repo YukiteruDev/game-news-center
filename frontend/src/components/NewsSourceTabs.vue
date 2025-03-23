@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { newsSources, type NewsSourcesId } from '../types';
+import { getSourceIcon } from '../utils';
 
 defineProps<{
   activeTab: NewsSourcesId;
@@ -27,6 +28,7 @@ const emit = defineEmits<{
           :aria-controls="`news-list-${source.id}`"
           @click="emit('update-active-tab', source.id)"
         >
+          <img :src="getSourceIcon(source.id)" :alt="source.name" />
           {{ source.name }}
         </button>
       </li>
@@ -75,9 +77,16 @@ section {
       }
 
       button {
-        padding: 0 0.6rem;
+        padding: 0.1rem 0.5rem;
         border-radius: 0.25rem;
         cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        img {
+          max-height: 1rem;
+        }
       }
     }
   }

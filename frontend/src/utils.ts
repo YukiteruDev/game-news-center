@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import type { NewsSourcesId } from './types';
 
 export function getISODateTime(date: Date) {
   return date.toISOString();
@@ -6,6 +7,12 @@ export function getISODateTime(date: Date) {
 
 export function getFullDateTime(date: Date) {
   return dayjs(date).format('YYYY-MM-DD HH:mm:ss');
+}
+
+export function getSourceIcon(id: NewsSourcesId) {
+  let iconPath = `./assets/icons/icon-${id}.png`;
+  if (id === 'all') iconPath = '/vite.svg';
+  return new URL(iconPath, import.meta.url).href;
 }
 
 export function formatDateTime(date: Date): string {
