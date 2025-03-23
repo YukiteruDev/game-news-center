@@ -95,10 +95,8 @@ async function fetchNewsInfo(page: Page, url: string): Promise<NewsItem> {
 
     const sideInfo = articleArea.find('.news_title_bar > div');
 
-    const description = articleArea
-      .find('.article_body .content')
-      .text()
-      .split('\r')[0];
+    const descriptionText = articleArea.find('.article_body .content').text();
+    const description = cleanDescription(descriptionText);
 
     const dateEl = sideInfo.find('.item').first();
     dateEl.find('svg').remove();
@@ -132,6 +130,16 @@ async function fetchNewsInfo(page: Page, url: string): Promise<NewsItem> {
     console.error('Error fetching news info', error);
     throw error;
   }
+}
+
+function cleanDescription(text: string): string {
+  let cleanedText = text;
+
+  cleanedText = cleanedText.replace(/^【.*?】/, '');
+  cleanedText = cleanedText.trim();
+  cleanedText = cleanedText.split('\n')[0];
+
+  return cleanedText.slice(0, 1000);
 }
 
 async function main() {
