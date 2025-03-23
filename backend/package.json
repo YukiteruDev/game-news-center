@@ -25,7 +25,8 @@
     "express": "^4.21.2",
     "http": "0.0.1-security",
     "pg": "^8.13.3",
-    "puppeteer": "^24.4.0"
+    "puppeteer": "^24.4.0",
+    "rss-parser": "^3.13.0"
   },
   "devDependencies": {
     "@mikro-orm/cli": "^6.4.9",

@@ -1,78 +1,79 @@
-import axios from 'axios';
-import * as cheerio from 'cheerio';
-import { CheerioAPI } from 'cheerio';
+import Parser from 'rss-parser';
 import dayjs from 'dayjs';
 import { pathToFileURL } from 'url';
 import { NewsItem } from '#shared/types/news.js';
 import { closeORM, filterNewLinks, getEM } from '../orm.js';
 
 const baseUrl = 'https://www.gcores.com';
-
-async function fetchNewsHtml(): Promise<string> {
-  try {
-    const res = await axios.get(`${baseUrl}/news`);
-    return res.data;
-  } catch (error) {
-    console.error('Error fetching news html', error);
-    throw error;
-  }
-}
+const rssUrl = `${baseUrl}/rss`;
 
 export default async function parseNewsItems(): Promise<NewsItem[]> {
   console.log('Fetching Gcores...');
-  const html = await fetchNewsHtml();
 
-  const $: CheerioAPI = cheerio.load(html);
+  const parser = new Parser();
+  const feed = await parser.parseURL(rssUrl);
 
-  const script = $('body > script').first().html();
-  const match = script?.match(/window\.__PRELOADED_STATE__\s*=\s*({.*?});/s);
+  const em = await getEM();
+  const articleLinks: string[] = feed.items.map((item) => item.link as string);
+  const newLinks = await filterNewLinks(em, articleLinks);
+
+  if (!newLinks.length) {
+    console.log('No new items found in Gcores RSS');
+    return [];
+  }
 
   const newsItems: NewsItem[] = [];
 
-  if (match) {
-    const preloadedState = JSON.parse(match[1]);
+  for (const item of feed.items) {
+    if (!item.link || !newLinks.includes(item.link)) continue;
 
-    const articles = preloadedState.entities.articles;
+    const title = item.title || '';
+    const date = dayjs(item.isoDate).toDate();
+    const description = extractDescription(item.contentSnippet);
+    const thumbnail = extractThumbnail(item.content);
+    const link = item.link;
 
-    const articleLinks: string[] = Object.keys(articles).map(
-      (id) => `${baseUrl}/articles/${id}`
-    );
-    const em = await getEM();
-    const newLinks = await filterNewLinks(em, articleLinks);
-
-    if (!newLinks.length) {
-      console.log('No new items found in Gcores');
-      return [];
-    }
-
-    for (const id in articles) {
-      const link = `${baseUrl}/articles/${id}`;
-
-      if (!newLinks.includes(link)) continue;
-
-      const article = articles[id];
-      const info = article.attributes;
-
-      const title: string = info.title;
-
-      const dateString: string = info['published-at'];
-      const date = dayjs(dateString).toDate();
-
-      const commentsCount: number = parseInt(info['comments-count']) || 0;
-      const thumbnail: string = `https://image.gcores.com/${info.thumb}`;
-
-      newsItems.push({
-        link,
-        title,
-        date,
-        commentsCount,
-        thumbnail,
-        source: 'gcores',
-      });
-    }
+    newsItems.push({
+      title,
+      date,
+      description,
+      thumbnail,
+      link,
+      source: 'gcores',
+    });
   }
 
   return newsItems;
+}
+
+function extractDescription(contentSnippet?: string): string {
+  if (!contentSnippet) return '';
+
+  const blocks = contentSnippet.split('\n');
+  const firstBlock = blocks[0];
+  const secondBlock = blocks[1];
+
+  const invalidFirstBlock =
+    firstBlock.length < 10 || firstBlock.includes('本期时间轴制作');
+
+  return invalidFirstBlock ? secondBlock : firstBlock;
+}
+
+function extractThumbnail(content?: string): string {
+  if (!content) return '';
+
+  const match = content.match(/<img.*?src="(.*?)"/);
+
+  if (!match) return '';
+
+  try {
+    const imageUrl = new URL(match[1]);
+    imageUrl.search = '';
+    imageUrl.hash = '';
+    return imageUrl.href;
+  } catch {
+    return '';
+  }
 }
 
 async function main() {
