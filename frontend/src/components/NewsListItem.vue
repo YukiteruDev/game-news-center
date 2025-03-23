@@ -14,6 +14,7 @@ const { isDefaultTabActive } = storeToRefs(useNewsListStore());
 
 const props = defineProps<{
   item: NewsItem;
+  isLastItem: boolean;
 }>();
 
 const newsSite = ref<NewsSource>({} as NewsSource);
@@ -40,7 +41,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <article class="news-item">
+  <article class="news-item" :class="{ 'bottom-border': !isLastItem }">
     <header class="news-item__header">
       <a class="news-item__cover" :href="props.item.link" target="_blank">
         <img
@@ -91,7 +92,10 @@ onMounted(() => {
   display: flex;
   gap: 1rem;
   padding: 1rem;
-  border-bottom: 1px solid var(--accent-color);
+
+  &.bottom-border {
+    border-bottom: 1px solid var(--accent-color);
+  }
 
   a.news-item__cover {
     display: flex;

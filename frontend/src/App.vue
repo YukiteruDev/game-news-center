@@ -118,6 +118,7 @@ header.page-header {
 main.main-content {
   width: 100%;
   margin: 0 auto;
+  margin-bottom: 2rem;
   background-color: var(--primary-color);
   border: 1px solid var(--accent-color);
   border-radius: 0.8rem;

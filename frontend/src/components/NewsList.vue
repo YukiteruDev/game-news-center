@@ -5,12 +5,16 @@ import NewsListItem from './NewsListItem.vue';
 const props = defineProps<{
   newsList: NewsItem[];
 }>();
+
+function isLastItem(index: number) {
+  return index === props.newsList.length - 1;
+}
 </script>
 
 <template>
   <ul class="news-list">
-    <li v-for="item in props.newsList" :key="item.id">
-      <NewsListItem :item="item" />
+    <li v-for="(item, index) in props.newsList" :key="item.id">
+      <NewsListItem :item="item" :is-last-item="isLastItem(index)" />
     </li>
   </ul>
 </template>
