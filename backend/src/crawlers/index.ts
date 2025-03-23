@@ -5,6 +5,7 @@ import getGcoresNews from './gcores.crawler.js';
 import getErbingNews from './erbing.crawler.js';
 import getGamerskyNews from './gamersky.crawler.js';
 import getIthomeNews from './ithome.crawler.js';
+import getGamelookNews from './gamelook.crawler.js';
 import { NewsItem } from '#shared/types/news.js';
 import { closeORM, getEM } from '../orm.js';
 import { NewsModel } from '../models/news.model.js';
@@ -16,12 +17,14 @@ export async function fetchAllNews(): Promise<NewsItem[]> {
   const erbingNews = await getErbingNews();
   const gamerskyNews = await getGamerskyNews();
   const ithomeNews = await getIthomeNews();
+  const gamelookNews = await getGamelookNews();
 
   const allNewsItems = [
     ...gcoresNews,
     ...erbingNews,
     ...gamerskyNews,
     ...ithomeNews,
+    ...gamelookNews,
   ];
   console.log(`Fetched ${allNewsItems.length} news items`);
 
