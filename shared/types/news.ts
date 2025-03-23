@@ -20,6 +20,7 @@ export interface NewsItem {
   id?: string;
   link: string;
   title: string;
+  description?: string;
   date: Date;
   commentsCount?: number;
   thumbnail: string;

@@ -34,6 +34,16 @@
           "length": 255,
           "mappedType": "string"
         },
+        "description": {
+          "name": "description",
+          "type": "varchar(1000)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 1000,
+          "mappedType": "string"
+        },
         "date": {
           "name": "date",
           "type": "timestamptz",

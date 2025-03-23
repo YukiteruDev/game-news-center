@@ -54,8 +54,13 @@ onMounted(() => {
     </header>
     <section class="news-item__content">
       <h3 class="news-item__title">
-        <a :href="props.item.link" target="_blank">{{ props.item.title }}</a>
+        <a :href="props.item.link" :title="props.item.title" target="_blank">{{
+          props.item.title
+        }}</a>
       </h3>
+      <p v-if="props.item.description" class="news-item__description">
+        {{ props.item.description }}
+      </p>
       <small class="news-item__meta">
         <span v-if="isDefaultTabActive" class="news-item__site">
           <img :src="getNewsIcon" />
@@ -114,22 +119,36 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 0.3rem;
+
+    .news-item__title a,
+    .news-item__description {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      line-clamp: 2;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
 
     .news-item__title {
       a {
+        display: block;
         color: var(--text-color);
+        line-height: 1.4rem;
         text-decoration: none;
         transition: color 0.2s ease-in-out;
-        display: inline-block;
-        box-orient: vertical;
-        line-clamp: 2;
-        text-overflow: ellipsis;
 
         &:hover,
         &:active {
           color: var(--link-color);
         }
       }
+    }
+
+    .news-item__description {
+      color: var(--secondary-text-color);
+      font-size: 0.9rem;
     }
 
     .news-item__meta {

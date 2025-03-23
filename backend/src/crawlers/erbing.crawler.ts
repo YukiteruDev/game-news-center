@@ -95,6 +95,11 @@ async function fetchNewsInfo(page: Page, url: string): Promise<NewsItem> {
 
     const sideInfo = articleArea.find('.news_title_bar > div');
 
+    const description = articleArea
+      .find('.article_body .content')
+      .text()
+      .split('\r')[0];
+
     const dateEl = sideInfo.find('.item').first();
     dateEl.find('svg').remove();
     const dateString = dateEl.text().trim();
@@ -108,7 +113,7 @@ async function fetchNewsInfo(page: Page, url: string): Promise<NewsItem> {
       commentsCount = parseInt(commentsText) || 0;
     }
 
-    const image = articleArea.find('.media').find('img').first();
+    const image = articleArea.find('.media img').first();
     const imageSrc = image.attr('src') || '';
     const thumbnail = imageSrc.replace(/\?.*$/, '');
 
@@ -117,6 +122,7 @@ async function fetchNewsInfo(page: Page, url: string): Promise<NewsItem> {
     return {
       link: url,
       title,
+      description,
       date,
       commentsCount,
       thumbnail,
@@ -130,7 +136,8 @@ async function fetchNewsInfo(page: Page, url: string): Promise<NewsItem> {
 
 async function main() {
   try {
-    await getNewsItems();
+    const items = await getNewsItems();
+    console.log(items);
   } catch (error) {
     console.error('Error getting news data:', error);
   } finally {

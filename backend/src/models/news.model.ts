@@ -19,6 +19,9 @@ export class NewsModel implements NewsItem {
   @Property({ type: 'string' })
   title: string;
 
+  @Property({ type: 'string', length: 1000, nullable: true })
+  description?: string;
+
   @Property({ type: DateTimeType })
   date: Date;
 
@@ -40,6 +43,7 @@ export class NewsModel implements NewsItem {
   constructor(newsItem: NewsItem & { source: string }) {
     this.link = newsItem.link;
     this.title = newsItem.title;
+    this.description = newsItem.description;
     this.date = newsItem.date;
     this.commentsCount = newsItem.commentsCount ?? 0;
     this.thumbnail = newsItem.thumbnail;

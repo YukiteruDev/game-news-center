@@ -43,6 +43,8 @@ export default async function parseNewsItems(): Promise<NewsItem[]> {
 
     if (!newLinks.includes(link)) return;
 
+    const description = $(news).find('.m').text();
+
     const dateString = $(news).find('.c').attr('data-ot') || '';
     const date = getLocaleDate(dateString);
 
@@ -52,6 +54,7 @@ export default async function parseNewsItems(): Promise<NewsItem[]> {
     newsItems.push({
       title,
       link,
+      description,
       date,
       thumbnail,
       source: 'ithome',
