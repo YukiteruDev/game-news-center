@@ -63,7 +63,7 @@ onMounted(() => {
       </p>
       <small class="news-item__meta">
         <span v-if="isDefaultTabActive" class="news-item__site">
-          <img :src="getNewsIcon" />
+          <img :src="getNewsIcon" :alt="newsSite.name" />
           {{ newsSite.name }}
         </span>
         <time

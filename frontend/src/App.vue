@@ -19,6 +19,8 @@ const page = ref(1);
 const totalPages = ref(0);
 const isLoading = ref(false);
 
+const newsListId = computed(() => `news-list-${activeTab.value}`);
+
 function updateActiveTab(id: NewsSourcesId) {
   window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
 
@@ -86,7 +88,7 @@ onMounted(() => {
       @update-active-tab="updateActiveTab"
     />
     <section class="news-list-container">
-      <NewsList :news-list="newsList" />
+      <NewsList :id="newsListId" :news-list="newsList" />
     </section>
   </main>
 </template>
