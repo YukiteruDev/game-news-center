@@ -21,6 +21,9 @@ const isLoading = ref(false);
 
 function updateActiveTab(id: NewsSourcesId) {
   window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+
+  if (activeTab.value === id) return;
+
   setActiveTab(id);
   page.value = 1;
   newsList.value = [];
