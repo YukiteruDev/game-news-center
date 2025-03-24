@@ -141,6 +141,7 @@ onMounted(() => {
       a {
         display: block;
         color: var(--text-color);
+        font-size: 1.2rem;
         line-height: 1.4rem;
         text-decoration: none;
         transition: color 0.2s ease-in-out;
@@ -149,12 +150,26 @@ onMounted(() => {
         &:active {
           color: var(--link-color);
         }
+
+        @media screen and (max-width: 800px) {
+          font-size: 0.9rem;
+          line-height: 1.2rem;
+        }
       }
     }
 
     .news-item__description {
       color: var(--secondary-text-color);
       font-size: 0.9rem;
+
+      @media screen and (max-width: 800px) {
+        font-size: 0.75rem;
+      }
+
+      @media screen and (max-width: 600px) {
+        -webkit-line-clamp: 1;
+        line-clamp: 1;
+      }
     }
 
     .news-item__meta {

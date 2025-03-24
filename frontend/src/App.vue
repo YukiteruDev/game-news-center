@@ -117,6 +117,7 @@ header.page-header {
 
 main.main-content {
   width: 100%;
+  max-width: 800px;
   margin: 0 auto;
   margin-bottom: 2rem;
   background-color: var(--primary-color);
@@ -127,8 +128,8 @@ main.main-content {
     min-height: 100vh;
   }
 
-  @media screen and (min-width: 800px) {
-    max-width: 800px;
+  @media screen and (max-width: 800px) {
+    border-radius: 0;
   }
 }
 </style>
