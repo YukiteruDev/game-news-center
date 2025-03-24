@@ -123,6 +123,7 @@ onMounted(() => {
     flex-direction: column;
     justify-content: space-between;
     gap: 0.3rem;
+    overflow: hidden;
 
     .news-item__title a,
     .news-item__description {
