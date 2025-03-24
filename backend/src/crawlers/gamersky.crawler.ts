@@ -6,11 +6,11 @@ import { NewsItem } from '#shared/types/news.js';
 import { closeORM, filterNewLinks, getEM } from '../orm.js';
 import { getLocaleDate } from '../utils.js';
 
-const baseUrl = 'https://www.gamersky.com';
+const baseUrl = 'https://www.gamersky.com/news/';
 
 async function fetchNewsHtml(): Promise<string> {
   try {
-    const res = await axios.get(`${baseUrl}/news/pc/zx/`);
+    const res = await axios.get(baseUrl);
     return res.data;
   } catch (error) {
     console.error('Error fetching news html', error);
@@ -27,7 +27,7 @@ export default async function parseNewsItems(): Promise<NewsItem[]> {
   const newsItems: NewsItem[] = [];
 
   const em = await getEM();
-  const newsList = $('.Mid .Mid2_L ul li');
+  const newsList = $('.Mid .Mid2_L .block ul li');
   const newsLinks = newsList
     .map((_, el) => $(el).find('.tit a').attr('href'))
     .get();
@@ -50,9 +50,6 @@ export default async function parseNewsItems(): Promise<NewsItem[]> {
     const dateString = $(news).find('.time').text();
     const date = getLocaleDate(dateString);
 
-    const commentsText = $(news).find('.pls.cy_comment').text().trim(); // will always be 0 since the comments are ajax loaded
-    const commentsCount = parseInt(commentsText);
-
     const thumbnail = $(news).find('.img img').attr('src') || '';
 
     newsItems.push({
@@ -60,7 +57,6 @@ export default async function parseNewsItems(): Promise<NewsItem[]> {
       link,
       description,
       date,
-      commentsCount,
       thumbnail,
       source: 'gamersky',
     });
