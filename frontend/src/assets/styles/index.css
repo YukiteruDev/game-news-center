@@ -12,3 +12,7 @@ body {
   background-color: var(--background-color);
   color: var(--text-color);
 }
+
+* {
+  outline: 1px solid rgb(255 0 0 / 10%);
+}
