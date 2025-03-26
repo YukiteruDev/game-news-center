@@ -6,7 +6,7 @@ import { NewsItem } from '#shared/types/news.js';
 import { closeORM, filterNewLinks, getEM } from '../orm.js';
 import { getLocaleDate } from '../utils.js';
 
-const baseUrl = 'https://www.gamersky.com/news/';
+const baseUrl = 'https://www.gamersky.com/pcgame/';
 
 async function fetchNewsHtml(): Promise<string> {
   try {
