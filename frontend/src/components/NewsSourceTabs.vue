@@ -100,7 +100,7 @@ section {
       flex-shrink: 0;
 
       &.active {
-        border-bottom: 2px solid var(--active-color);
+        border-bottom: 3px solid var(--active-color);
       }
 
       &:not(.active) {

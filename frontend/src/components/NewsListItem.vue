@@ -53,14 +53,19 @@ onMounted(() => {
       </a>
     </header>
     <section class="news-item__content">
-      <h3 class="news-item__title">
-        <a :href="props.item.link" :title="props.item.title" target="_blank">{{
-          props.item.title
-        }}</a>
-      </h3>
-      <p v-if="props.item.description" class="news-item__description">
-        {{ props.item.description }}
-      </p>
+      <a
+        class="news-item__link"
+        :href="props.item.link"
+        :title="props.item.title"
+        target="_blank"
+      >
+        <h3 class="news-item__title">
+          {{ props.item.title }}
+        </h3>
+        <p v-if="props.item.description" class="news-item__description">
+          {{ props.item.description }}
+        </p>
+      </a>
       <small class="news-item__meta">
         <span v-if="isDefaultTabActive" class="news-item__site">
           <img :src="getSourceIcon(newsSite.id)" :alt="newsSite.name" />
@@ -124,51 +129,48 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 0.3rem;
+    gap: 0.5rem;
     overflow: hidden;
 
-    .news-item__title a,
-    .news-item__description {
+    a.news-item__link {
+      color: var(--text-color);
+      text-decoration: none;
+      transition: color 0.2s ease-in-out;
       display: -webkit-box;
-      -webkit-line-clamp: 2;
+      -webkit-line-clamp: 4;
       -webkit-box-orient: vertical;
-      line-clamp: 2;
+      line-clamp: 4;
       text-overflow: ellipsis;
       overflow: hidden;
-    }
 
-    .news-item__title {
-      a {
-        display: block;
-        color: var(--text-color);
+      .news-item__title {
         font-size: 1.2rem;
         line-height: 1.4rem;
-        text-decoration: none;
-        transition: color 0.2s ease-in-out;
-
-        &:hover,
-        &:active {
-          color: var(--link-color);
-        }
+        margin-bottom: 0.3rem;
 
         @media screen and (max-width: 800px) {
           font-size: 0.9rem;
           line-height: 1.2rem;
         }
       }
-    }
 
-    .news-item__description {
-      color: var(--secondary-text-color);
-      font-size: 0.9rem;
+      .news-item__description {
+        color: var(--secondary-text-color);
+        font-size: 0.9rem;
 
-      @media screen and (max-width: 800px) {
-        font-size: 0.75rem;
+        @media screen and (max-width: 800px) {
+          font-size: 0.8rem;
+        }
+      }
+
+      &:hover,
+      &:active {
+        color: var(--link-color);
       }
 
       @media screen and (max-width: 600px) {
-        -webkit-line-clamp: 1;
-        line-clamp: 1;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
       }
     }
 
