@@ -27,7 +27,7 @@ export default async function parseNewsItems(): Promise<NewsItem[]> {
   const newsItems: NewsItem[] = [];
 
   const em = await getEM();
-  const newsList = $('.Mid .Mid2_L .block ul li');
+  const newsList = $('.Mid .Mid2_L ul.block li');
   const newsLinks = newsList
     .map((_, el) => $(el).find('.tit a').attr('href'))
     .get();
