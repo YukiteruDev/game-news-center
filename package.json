@@ -22,6 +22,7 @@
     "@eslint/js": "^9.22.0",
     "@typescript-eslint/eslint-plugin": "^8.26.0",
     "@typescript-eslint/parser": "^8.26.0",
+    "dotenv-cli": "^8.0.0",
     "eslint": "^9.22.0",
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-vue": "^10.0.0",
@@ -32,6 +33,7 @@
     "stylelint": "^16.15.0",
     "stylelint-config-standard": "^37.0.0",
     "stylelint-prettier": "^5.0.3",
+    "tsconfig-paths": "^4.2.0",
     "typescript-eslint": "^8.26.0",
     "vue-eslint-parser": "^10.1.1"
   }

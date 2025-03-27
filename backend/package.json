@@ -5,8 +5,15 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "build": "tsx --build tsconfig.json",
     "start": "tsx src/app.ts",
-    "dev": "nodemon --watch src --ext ts --exec tsx src/app.ts"
+    "dev": "nodemon --watch src --ext ts --exec tsx src/app.ts",
+    "dev:local": "dotenv -- nodemon --watch src --ext ts --exec tsx src/app.ts",
+    "mikro-orm": "mikro-orm",
+    "migrate:create": "tsx ./node_modules/@mikro-orm/cli/cli.js migration:create --config ./mikro-orm.config.ts",
+    "migrate:create:local": "dotenv -- tsx ./node_modules/@mikro-orm/cli/cli.js migration:create --config ./mikro-orm.config.ts",
+    "migrate:up": "tsx ./node_modules/@mikro-orm/cli/cli.js migration:up --config ./mikro-orm.config.ts",
+    "migrate:up:local": "dotenv -- tsx ./node_modules/@mikro-orm/cli/cli.js migration:up --config ./mikro-orm.config.ts"
   },
   "keywords": [],
   "author": "",
@@ -36,6 +43,9 @@
     "nodemon": "^3.1.9",
     "tsx": "^4.19.3",
     "typescript": "~5.7.2"
+  },
+  "optionalDependencies": {
+    "@esbuild/linux-x64": "0.25.1"
   },
   "mikro-orm": {
     "useNodeTs": true,

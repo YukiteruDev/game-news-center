@@ -1,0 +1,40 @@
+# Git files
+.git
+.gitignore
+
+# Node modules (we install these inside the container)
+node_modules
+*/node_modules
+
+# Build artifacts (we generate these inside the container)
+dist
+build
+*/dist
+*/build
+*.tsbuildinfo
+
+# Frontend source (if only building backend)
+# frontend/
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+logs/
+
+# Env files (handle securely, don't commit to git or docker image)
+.env*
+!/.env.example
+
+# Docker files (usually not needed inside the image itself)
+Dockerfile*
+docker-compose*
+
+# Other
+.idea/
+.vscode/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

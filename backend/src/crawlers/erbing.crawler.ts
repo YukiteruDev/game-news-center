@@ -52,7 +52,10 @@ export default async function getNewsItems(): Promise<NewsItem[]> {
 
   const newsItems: NewsItem[] = [];
 
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ['--no-sandbox'],
+  });
   console.log('Browser launched');
 
   try {
