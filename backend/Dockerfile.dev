@@ -53,6 +53,7 @@ RUN pnpm dlx puppeteer@latest browsers install chrome --path /app/.puppeteer-cac
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY backend/package.json ./backend/
+COPY frontend/package.json ./frontend/
 
 RUN pnpm install --frozen-lockfile
 

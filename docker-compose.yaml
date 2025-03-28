@@ -51,12 +51,6 @@ services:
     image: postgres:17-alpine
     container_name: news-db-dev
     restart: always
-    # environment:
-    #   DB_NAME: game_news_db
-    #   DB_USER: news_dev
-    #   DB_PASSWORD: news_pass
-    #   DB_HOST: db
-    #   NODE_ENV: development
     env_file:
       - ./.env
     volumes:
