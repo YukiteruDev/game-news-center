@@ -11,9 +11,11 @@
     "dev:local": "dotenv -- nodemon --watch src --ext ts --exec tsx src/app.ts",
     "mikro-orm": "mikro-orm",
     "migrate:create": "tsx ./node_modules/@mikro-orm/cli/cli.js migration:create --config ./src/mikro-orm.config.ts",
-    "migrate:create:local": "dotenv -- tsx ./node_modules/@mikro-orm/cli/cli.js migration:create --config ./src/mikro-orm.config.ts",
     "migrate:up": "tsx ./node_modules/@mikro-orm/cli/cli.js migration:up --config ./src/mikro-orm.config.ts",
-    "migrate:up:local": "dotenv -- tsx ./node_modules/@mikro-orm/cli/cli.js migration:up --config ./src/mikro-orm.config.ts"
+    "migrate:down": "tsx ./node_modules/@mikro-orm/cli/cli.js migration:down --config ./src/mikro-orm.config.ts",
+    "migrate:create:local": "dotenv -- tsx ./node_modules/@mikro-orm/cli/cli.js migration:create --config ./src/mikro-orm.config.ts",
+    "migrate:up:local": "dotenv -- tsx ./node_modules/@mikro-orm/cli/cli.js migration:up --config ./src/mikro-orm.config.ts",
+    "migrate:down:local": "dotenv -- tsx ./node_modules/@mikro-orm/cli/cli.js migration:down --config ./src/mikro-orm.config.ts"
   },
   "keywords": [],
   "author": "",

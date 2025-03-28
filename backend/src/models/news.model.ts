@@ -13,7 +13,7 @@ export class NewsModel implements NewsItem {
   @PrimaryKey({ type: 'uuid', defaultRaw: 'gen_random_uuid()' })
   id!: string;
 
-  @Property({ type: 'string', unique: true, index: true })
+  @Property({ type: 'string', unique: true })
   link: string;
 
   @Property({ type: 'string' })
