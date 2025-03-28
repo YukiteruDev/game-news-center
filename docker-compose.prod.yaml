@@ -25,6 +25,13 @@ services:
       timeout: 10s
       retries: 3
       start_period: 30s
+    command: >
+      sh -c "
+        echo 'Running database migrations...' &&
+        pnpm --filter backend migration:up &&
+        echo 'Starting application...' &&
+        node backend/dist/src/app.js
+      "
 
   frontend:
     container_name: news-frontend-prod
