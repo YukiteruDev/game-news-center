@@ -28,7 +28,7 @@ services:
     command: >
       sh -c "
         echo 'Running database migrations...' &&
-        pnpm --filter backend migration:up &&
+        pnpm --filter backend migrate:up &&
         echo 'Starting application...' &&
         node backend/dist/src/app.js
       "

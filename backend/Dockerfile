@@ -66,4 +66,4 @@ USER nodejs
 
 EXPOSE 3000
 
-CMD ["dumb-init", "sh", "-c", "pnpm --filter backend migration:up && echo 'Starting application...' && node backend/dist/src/app.js"]
+CMD ["dumb-init", "sh", "-c", "pnpm --filter backend migrate:up && echo 'Starting application...' && node backend/dist/src/app.js"]
