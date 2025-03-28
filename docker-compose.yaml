@@ -8,25 +8,16 @@ services:
       - '3000:3000'
     environment:
       - NODE_ENV=development
+      - PUPPETEER_CACHE_DIR=/app/.puppeteer-cache
     env_file:
       - ./.env
     volumes:
       - .:/app
       - /app/node_modules
       - /app/backend/node_modules
-      - puppeteer_cache:/root/.cache/puppeteer
+      - puppeteer_cache:/app/.puppeteer-cache
     command: >
       sh -c "
-        echo 'Checking/Installing Chrome for Puppeteer...' &&
-        # Check if Chrome executable exists in the expected cache path within the volume
-        # Adjust the path slightly if puppeteer version installs differently, check via 'ls' if needed
-        if [ ! -f "/root/.cache/puppeteer/chrome/linux-$(pnpm view puppeteer version | sed 's/\./-/g')/chrome-linux64/chrome" ]; then
-          echo 'Chrome not found in cache volume, installing...' &&
-          # Force install into the specific cache directory (mapped to the volume)
-          pnpm dlx puppeteer browsers install chrome --path /root/.cache/puppeteer;
-        else
-          echo 'Chrome found in cache volume.';
-        fi &&
         echo 'Running database migrations...' &&
         pnpm --filter backend run migrate:up &&
         echo 'Starting application...' &&
