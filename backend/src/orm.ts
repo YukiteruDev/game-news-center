@@ -1,5 +1,5 @@
 import { MikroORM, EntityManager } from '@mikro-orm/core';
-import config from '../mikro-orm.config.js';
+import config from './mikro-orm.config.js';
 import { NewsItem } from '#shared/types/news.js';
 import { NewsModel } from './models/news.model.js';
 

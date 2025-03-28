@@ -10,7 +10,7 @@ export function getFullDateTime(date: Date) {
 }
 
 export function getSourceIcon(id: NewsSourcesId) {
-  let iconPath = `./assets/icons/icon-${id}.png`;
+  let iconPath = `/icons/icon-${id}.png`;
   if (id === 'all') iconPath = '/vite.svg';
   return new URL(iconPath, import.meta.url).href;
 }

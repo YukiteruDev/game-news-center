@@ -1,7 +1,7 @@
 import { defineConfig } from '@mikro-orm/core';
 import { PostgreSqlDriver } from '@mikro-orm/postgresql';
 import { Migrator } from '@mikro-orm/migrations';
-import { NewsModel } from './src/models/news.model.js';
+import { NewsModel } from './models/news.model.js';
 
 console.table({
   DB_NAME: process.env.DB_NAME,
