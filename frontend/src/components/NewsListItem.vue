@@ -7,12 +7,8 @@ import {
   type NewsItem,
   type NewsSource,
 } from '#shared/types/news';
-import {
-  getISODateTime,
-  getFullDateTime,
-  formatDateTime,
-  getSourceIcon,
-} from '../utils';
+import { getSourceIcon } from '../utils';
+import { getISODateTime, getFullDateTime, formatDateTime } from '../utils/time';
 import { useNewsListStore } from '../stores/newsList';
 
 const { isDefaultTabActive } = storeToRefs(useNewsListStore());
