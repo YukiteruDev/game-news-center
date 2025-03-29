@@ -43,7 +43,7 @@ services:
       context: .
       dockerfile: frontend/Dockerfile
     ports:
-      - '8080:80'
+      - '80:80'
     networks:
       - news-network
     restart: unless-stopped
