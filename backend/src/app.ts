@@ -11,11 +11,25 @@ const port: number = 3000;
 // Middleware
 app.use(express.json());
 
-const allowedOrigins = ['http://localhost:5173', 'http://localhost:8080'];
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:8080',
+  'http://18.180.165.190:8080',
+];
 
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg = `CORS policy: The origin '${origin}' is not allowed.`;
+        console.error(msg);
+        return callback(new Error(msg), false);
+      }
+
+      return callback(null, true);
+    },
   })
 );
 

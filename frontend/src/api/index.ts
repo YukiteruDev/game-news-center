@@ -2,9 +2,8 @@ import axios from 'axios';
 import type { NewsItem } from '#shared/types/news';
 import type { NewsSourcesId, Pagination } from '../types';
 
-const apiClient = axios.create({
-  baseURL: 'http://localhost:3000/api',
-});
+const baseURL = import.meta.env.VITE_API_BASE_URL;
+const apiClient = axios.create({ baseURL });
 
 export async function getNewsList(
   source: NewsSourcesId = 'all',
