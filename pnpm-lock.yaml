@@ -113,6 +113,9 @@ importers:
       rss-parser:
         specifier: ^3.13.0
         version: 3.13.0
+      tsx:
+        specifier: ^4.19.3
+        version: 4.19.3
     devDependencies:
       '@types/cors':
         specifier: ^2.8.17
@@ -135,9 +138,6 @@ importers:
       tsc-alias:
         specifier: ^1.8.11
         version: 1.8.11
-      tsx:
-        specifier: ^4.19.3
-        version: 4.19.3
       typescript:
         specifier: ~5.7.3
         version: 5.7.3
