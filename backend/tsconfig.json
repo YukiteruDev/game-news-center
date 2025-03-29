@@ -15,7 +15,7 @@
     "emitDecoratorMetadata": true,
     "sourceMap": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "migrations/**/*"],
   "exclude": ["node_modules", "dist"],
   "references": [{ "path": "../shared" }]
 }

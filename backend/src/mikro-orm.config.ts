@@ -21,7 +21,7 @@ export default defineConfig({
   debug: process.env.NODE_ENV !== 'production',
   extensions: [Migrator],
   migrations: {
-    path: './migrations',
+    path: './dist/migrations',
     pathTs: './migrations',
   },
 });

@@ -1,5 +1,5 @@
 # ---- Builder Stage ----
-FROM node:22-slim AS builder
+FROM node:22 AS builder
 WORKDIR /app
 RUN corepack enable pnpm
 
@@ -20,7 +20,7 @@ RUN pnpm --filter backend exec -- pnpm dlx puppeteer@latest browsers install chr
 
 
 # ---- Production Stage ----
-FROM node:22-slim AS production
+FROM node:22 AS production
 WORKDIR /app
 RUN corepack enable pnpm
 
@@ -36,6 +36,9 @@ RUN apt-get update && \
     libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgbm1 libglib2.0-0 libnspr4 \
     libnss3 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 \
     libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 \
+    libxkbcommon0 \
+    libpango-1.0-0 \
+    libcairo2 \
     lsb-release wget xdg-utils dumb-init \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*

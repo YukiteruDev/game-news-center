@@ -6,22 +6,19 @@
   "type": "module",
   "scripts": {
     "build": "rimraf dist && tsc -b",
-    "start": "tsx src/app.ts",
     "dev": "nodemon --watch src --ext ts --exec tsx src/app.ts",
     "dev:local": "dotenv -- nodemon --watch src --ext ts --exec tsx src/app.ts",
-    "mikro-orm": "mikro-orm",
-    "migrate:create": "tsx ./node_modules/@mikro-orm/cli/cli.js migration:create --config ./src/mikro-orm.config.ts",
-    "migrate:up": "tsx ./node_modules/@mikro-orm/cli/cli.js migration:up --config ./src/mikro-orm.config.ts",
-    "migrate:down": "tsx ./node_modules/@mikro-orm/cli/cli.js migration:down --config ./src/mikro-orm.config.ts",
-    "migrate:create:local": "dotenv -- tsx ./node_modules/@mikro-orm/cli/cli.js migration:create --config ./src/mikro-orm.config.ts",
-    "migrate:up:local": "dotenv -- tsx ./node_modules/@mikro-orm/cli/cli.js migration:up --config ./src/mikro-orm.config.ts",
-    "migrate:down:local": "dotenv -- tsx ./node_modules/@mikro-orm/cli/cli.js migration:down --config ./src/mikro-orm.config.ts"
+    "migrate:create": "mikro-orm migration:create --config ./dist/src/mikro-orm.config.js",
+    "migrate:up": "mikro-orm migration:up --config ./dist/src/mikro-orm.config.js",
+    "migrate:create:local": "dotenv -- tsx ./node_modules/@mikro-orm/cli/cli.js migration:create",
+    "migrate:up:local": "dotenv -- tsx ./node_modules/@mikro-orm/cli/cli.js migration:up"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.6.1",
   "dependencies": {
+    "@mikro-orm/cli": "^6.4.9",
     "@mikro-orm/core": "^6.4.9",
     "@mikro-orm/migrations": "^6.4.9",
     "@mikro-orm/postgresql": "^6.4.9",
@@ -38,7 +35,6 @@
     "rss-parser": "^3.13.0"
   },
   "devDependencies": {
-    "@mikro-orm/cli": "^6.4.9",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.10",
@@ -51,11 +47,5 @@
   },
   "optionalDependencies": {
     "@esbuild/linux-x64": "0.25.1"
-  },
-  "mikro-orm": {
-    "useNodeTs": true,
-    "configPaths": [
-      "./src/mikro-orm.config.ts"
-    ]
   }
 }
