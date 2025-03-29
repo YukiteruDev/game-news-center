@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: backend/Dockerfile
     ports:
-      - '3000:3000'
+      - '127.0.0.1:3000:3000'
     environment:
       - NODE_ENV=production
       - PUPPETEER_CACHE_DIR=/app/.puppeteer-cache
@@ -42,8 +42,6 @@ services:
     build:
       context: .
       dockerfile: frontend/Dockerfile
-    ports:
-      - '80:80'
     networks:
       - news-network
     restart: unless-stopped
