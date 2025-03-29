@@ -11,7 +11,11 @@ const port: number = 3000;
 // Middleware
 app.use(express.json());
 
-const allowedOrigins = ['http://localhost:5173', 'http://18.180.165.190:80'];
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://18.180.165.190:80',
+  'http://gamenews.top',
+];
 
 app.use(
   cors({
