@@ -4,7 +4,7 @@ import { CheerioAPI } from 'cheerio';
 import { pathToFileURL } from 'url';
 import { NewsItem } from '#shared/types/news.js';
 import { closeORM, filterNewLinks, getEM } from '../orm.js';
-import { getLocaleDate } from '../utils.js';
+import { getUtcDate } from '../utils.js';
 
 const baseUrl = 'https://game.ithome.com';
 
@@ -46,7 +46,7 @@ export default async function parseNewsItems(): Promise<NewsItem[]> {
     const description = $(news).find('.m').text();
 
     const dateString = $(news).find('.c').attr('data-ot') || '';
-    const date = getLocaleDate(dateString);
+    const date = getUtcDate(dateString);
 
     const imageSrc = $(news).find('img').attr('data-original') || '';
     const thumbnail = imageSrc.split('?')[0];

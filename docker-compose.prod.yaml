@@ -29,10 +29,10 @@ services:
       sh -c "
         echo 'Running database creation...' &&
         pnpm --filter backend migrate:create &&
-        sleep 3 &&
+        sleep 5 &&
         echo 'Running database migrations...' &&
         pnpm --filter backend migrate:up &&
-        sleep 3 &&
+        sleep 5 &&
         echo 'Starting application...' &&
         node backend/dist/src/app.js
       "

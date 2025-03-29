@@ -5,7 +5,7 @@ import { CheerioAPI } from 'cheerio';
 import { NewsItem, NewsSourceId } from '#shared/types/news.js';
 import { pathToFileURL } from 'url';
 import { closeORM, filterNewLinks, getEM } from '../orm.js';
-import { getLocaleDate } from '../utils.js';
+import { getUtcDate } from '../utils.js';
 
 const baseUrl = 'https://diershoubing.com';
 
@@ -104,7 +104,7 @@ async function fetchNewsInfo(page: Page, url: string): Promise<NewsItem> {
     const dateEl = sideInfo.find('.item').first();
     dateEl.find('svg').remove();
     const dateString = dateEl.text().trim();
-    const date = getLocaleDate(dateString);
+    const date = getUtcDate(dateString);
 
     let commentsCount = 0;
     const commentsEl = sideInfo.find('.item').last();
