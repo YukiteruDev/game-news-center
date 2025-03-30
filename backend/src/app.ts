@@ -10,20 +10,9 @@ import { NewsSourceId } from '#shared/types/news.js';
 const app: Application = express();
 const port: number = 3000;
 
-// --- Trust Proxy ---
-app.set('trust proxy', 'loopback');
+app.set('trust proxy', 1);
 
-// --- Morgan Setup ---
-morgan.token('real-ip', (req: Request) => req.ip || 'undefined');
-
-const morganFormat =
-  ':real-ip - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent" - :response-time ms';
-
-app.use(
-  morgan(morganFormat, {
-    stream: morganStream,
-  })
-);
+app.use(morgan('combined', { stream: morganStream }));
 
 app.use(express.json());
 
