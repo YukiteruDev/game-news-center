@@ -29,24 +29,6 @@ services:
       db:
         condition: service_healthy
 
-  frontend-dev:
-    container_name: news-frontend-dev
-    build:
-      context: .
-      dockerfile: frontend/Dockerfile.dev
-    ports:
-      - '5173:5173'
-    environment:
-      - NODE_ENV=development
-      - CHOKIDAR_USEPOLLING=true
-    volumes:
-      - .:/app
-      - /app/node_modules
-      - /app/frontend/node_modules
-    depends_on:
-      - backend-dev
-    command: pnpm --filter frontend run dev --host
-
   db:
     image: postgres:17-alpine
     container_name: news-db-dev

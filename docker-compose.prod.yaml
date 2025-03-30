@@ -37,15 +37,6 @@ services:
         node backend/dist/src/app.js
       "
 
-  frontend:
-    container_name: news-frontend-prod
-    build:
-      context: .
-      dockerfile: frontend/Dockerfile
-    networks:
-      - news-network
-    restart: unless-stopped
-
   db:
     image: postgres:17-alpine
     container_name: news-db-prod
@@ -54,8 +45,6 @@ services:
       - ./.env
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    # ports:
-    #   - '5433:5432' # Only if absolutely necessary for external access/debugging
     networks:
       - news-network
     healthcheck:
