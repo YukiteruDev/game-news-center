@@ -1,5 +1,6 @@
 import { MikroORM, EntityManager } from '@mikro-orm/core';
 import config from './mikro-orm.config.js';
+import { logger } from './logger.js';
 import { NewsItem } from '#shared/types/news.js';
 import { NewsModel } from './models/news.model.js';
 
@@ -10,7 +11,7 @@ export async function getORM(): Promise<MikroORM> {
 
   try {
     ormInstance = await MikroORM.init(config);
-    console.log('ORM initialized');
+    logger.info('[DB] ORM initialized');
   } catch (error) {
     console.error('Error during ORM initialization:', error);
     throw error;
@@ -22,7 +23,7 @@ export async function closeORM(): Promise<void> {
   if (!ormInstance) return;
 
   await ormInstance.close();
-  console.log('ORM closed');
+  logger.info('[DB] ORM closed');
   ormInstance = null;
 }
 

@@ -8,8 +8,6 @@ const baseUrl = 'https://www.gcores.com';
 const rssUrl = `${baseUrl}/rss`;
 
 export default async function parseNewsItems(): Promise<NewsItem[]> {
-  console.log('Fetching Gcores...');
-
   const parser = new Parser();
   const feed = await parser.parseURL(rssUrl);
 
@@ -18,7 +16,6 @@ export default async function parseNewsItems(): Promise<NewsItem[]> {
   const newLinks = await filterNewLinks(em, articleLinks);
 
   if (!newLinks.length) {
-    console.log('No new items found in Gcores RSS');
     return [];
   }
 

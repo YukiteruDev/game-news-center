@@ -8,8 +8,6 @@ import { closeORM, filterNewLinks, getEM } from '../orm.js';
 const rssUrl = 'http://www.gamelook.com.cn/feed/';
 
 export default async function parseNewsItems(): Promise<NewsItem[]> {
-  console.log('Fetching GameLook...');
-
   const parser = new Parser();
   const feed = await parser.parseURL(rssUrl);
 
@@ -18,7 +16,6 @@ export default async function parseNewsItems(): Promise<NewsItem[]> {
   const newLinks = await filterNewLinks(em, articleLinks);
 
   if (!newLinks.length) {
-    console.log('No new items found in GameLook RSS');
     return [];
   }
 

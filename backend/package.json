@@ -22,6 +22,7 @@
     "@mikro-orm/core": "^6.4.9",
     "@mikro-orm/migrations": "^6.4.9",
     "@mikro-orm/postgresql": "^6.4.9",
+    "@types/morgan": "^1.9.9",
     "axios": "^1.8.2",
     "cheerio": "^1.0.0",
     "cors": "^2.8.5",
@@ -30,10 +31,13 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "http": "0.0.1-security",
+    "morgan": "^1.10.0",
     "pg": "^8.13.3",
     "puppeteer": "^24.4.0",
     "rss-parser": "^3.13.0",
-    "tsx": "^4.19.3"
+    "tsx": "^4.19.3",
+    "winston": "^3.17.0",
+    "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

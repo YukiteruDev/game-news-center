@@ -8,21 +8,9 @@ import { getUtcDate } from '../utils.js';
 
 const baseUrl = 'https://www.gamersky.com/pcgame/';
 
-async function fetchNewsHtml(): Promise<string> {
-  try {
-    const res = await axios.get(baseUrl);
-    return res.data;
-  } catch (error) {
-    console.error('Error fetching news html', error);
-    throw error;
-  }
-}
-
 export default async function parseNewsItems(): Promise<NewsItem[]> {
-  console.log('Fetching Gamersky...');
-  const html = await fetchNewsHtml();
-
-  const $: CheerioAPI = cheerio.load(html);
+  const res = await axios.get(baseUrl);
+  const $: CheerioAPI = cheerio.load(res.data);
 
   const newsItems: NewsItem[] = [];
 
@@ -34,7 +22,6 @@ export default async function parseNewsItems(): Promise<NewsItem[]> {
   const newLinks = await filterNewLinks(em, newsLinks);
 
   if (!newLinks.length) {
-    console.log('No new items found in Gamersky');
     return [];
   }
 
